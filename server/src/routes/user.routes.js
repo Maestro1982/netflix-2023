@@ -4,7 +4,7 @@ import favoriteController from '../controllers/favorite.controller.js';
 import userController from '../controllers/user.controller.js';
 import requestHandler from '../handlers/request.handler.js';
 import User from '../models/user.model.js';
-import tokenMiddleware from '../middleware/token.middleware.js';
+import tokenMiddleware from '../middlewares/token.middleware.js';
 
 const router = express.Router();
 
