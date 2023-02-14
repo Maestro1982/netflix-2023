@@ -13,12 +13,13 @@ import {
   useScrollTrigger,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
-import menuConfigs from '../../configs/menu.configs.js';
+import menuConfigs from '../../configs/menu.configs.jsx';
 import { themeModes } from '../../configs/theme.configs';
 import { setIsAuthModalOpen } from '../../redux/features/authModalSlice';
 import { setThemeMode } from '../../redux/features/themeModeSlice';
 import Logo from './Logo';
 import UserMenu from './UserMenu.jsx';
+import Sidebar from './Sidebar.jsx';
 
 const ScrollAppBar = ({ children, window }) => {
   const { themeMode } = useSelector((state) => state.themeMode);
@@ -44,13 +45,13 @@ const ScrollAppBar = ({ children, window }) => {
     },
   });
 };
-
 const Topbar = () => {
   const { user } = useSelector((state) => state.user);
   const { appState } = useSelector((state) => state.appState);
   const { themeMode } = useSelector((state) => state.themeMode);
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   const dispatch = useDispatch();
 
   const onSwitchTheme = () => {
@@ -59,8 +60,11 @@ const Topbar = () => {
     dispatch(setThemeMode(theme));
   };
 
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
   return (
     <>
+      <Sidebar open={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <ScrollAppBar>
         <AppBar elevation={0} sx={{ zIndex: 9999 }}>
           <Toolbar
@@ -69,19 +73,18 @@ const Topbar = () => {
             <Stack direction='row' spacing={1} alignItems='center'>
               <IconButton
                 color='inherit'
-                sx={{
-                  mr: 2,
-                  display: { md: 'none' },
-                }}
+                sx={{ mr: 2, display: { md: 'none' } }}
+                onClick={toggleSidebar}
               >
                 <MenuIcon />
               </IconButton>
+
               <Box sx={{ display: { xs: 'inline-block', md: 'none' } }}>
                 <Logo />
               </Box>
             </Stack>
 
-            {/* Main menu */}
+            {/* main menu */}
             <Box
               flexGrow={1}
               alignItems='center'
@@ -111,21 +114,21 @@ const Topbar = () => {
                 {themeMode === themeModes.light && <WbSunnyOutlinedIcon />}
               </IconButton>
             </Box>
-            {/* Main menu */}
+            {/* main menu */}
 
-            {/* User menu */}
+            {/* user menu */}
             <Stack spacing={3} direction='row' alignItems='center'>
               {!user && (
                 <Button
                   variant='contained'
-                  onClick={() => setIsAuthModalOpen(true)}
+                  onClick={() => dispatch(setIsAuthModalOpen(true))}
                 >
-                  Sign In
+                  sign in
                 </Button>
               )}
             </Stack>
             {user && <UserMenu />}
-            {/* User menu */}
+            {/* user menu */}
           </Toolbar>
         </AppBar>
       </ScrollAppBar>
