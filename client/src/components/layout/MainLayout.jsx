@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import Footer from '../common/Footer';
 import GlobalLoading from '../common/GlobalLoading';
 import Topbar from '../common/Topbar';
+import AuthModal from '../common/AuthModal';
 
 const MainLayout = () => {
   return (
@@ -13,6 +14,7 @@ const MainLayout = () => {
       {/* Global loading */}
 
       {/* Login modal */}
+      <AuthModal />
       {/* Login modal */}
 
       <Box display='flex' minHeight='100vh'>

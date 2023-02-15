@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainLayout from './components/layout/MainLayout.jsx';
 import PageWrapper from './components/common/PageWrapper.jsx';
 import routes from './routes/routes.jsx';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const { themeMode } = useSelector((state) => state.themeMode);
