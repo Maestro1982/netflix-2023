@@ -30,19 +30,18 @@ const SignInForm = ({ switchAuthState }) => {
     onSubmit: async (values) => {
       setErrorMessage(undefined);
       setIsLoginRequest(true);
-      const { response, error } = await userApi.signIn(values);
+
+      const { response, err } = await userApi.signin(values);
       setIsLoginRequest(false);
 
       if (response) {
         signInForm.resetForm();
         dispatch(setUser(response));
         dispatch(setIsAuthModalOpen(false));
-        toast.success('User has been signed in successfully');
+        toast.success('Sign in success');
       }
 
-      if (error) {
-        setErrorMessage(error.message);
-      }
+      if (err) setErrorMessage(err.message);
     },
   });
 
@@ -51,7 +50,7 @@ const SignInForm = ({ switchAuthState }) => {
       <Stack spacing={3}>
         <TextField
           type='text'
-          placeholder='Username'
+          placeholder='username'
           name='username'
           fullWidth
           value={signInForm.values.username}
@@ -65,7 +64,7 @@ const SignInForm = ({ switchAuthState }) => {
         />
         <TextField
           type='password'
-          placeholder='Password'
+          placeholder='password'
           name='password'
           fullWidth
           value={signInForm.values.password}
@@ -84,22 +83,14 @@ const SignInForm = ({ switchAuthState }) => {
         fullWidth
         size='large'
         variant='contained'
-        sx={{
-          marginTop: 4,
-        }}
+        sx={{ marginTop: 4 }}
         loading={isLoginRequest}
       >
-        Sign in
+        sign in
       </LoadingButton>
 
-      <Button
-        fullWidth
-        sx={{
-          marginTop: 1,
-        }}
-        onClick={() => switchAuthState()}
-      >
-        Sign up
+      <Button fullWidth sx={{ marginTop: 1 }} onClick={() => switchAuthState()}>
+        sign up
       </Button>
 
       {errorMessage && (

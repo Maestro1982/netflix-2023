@@ -45,19 +45,19 @@ router.post(
 );
 
 router.post(
-  '/login',
+  '/signin',
   body('username')
     .exists()
     .withMessage('Username is required')
     .isLength({ min: 8 })
-    .withMessage('Username must be at least 8 characters long'),
+    .withMessage('Username minimum 8 characters'),
   body('password')
     .exists()
     .withMessage('Password is required')
     .isLength({ min: 8 })
-    .withMessage('Password must be at least 8 characters long'),
+    .withMessage('Password minimum 8 characters'),
   requestHandler.validate,
-  userController.signIn
+  userController.signin
 );
 
 router.put(

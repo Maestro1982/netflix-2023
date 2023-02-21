@@ -38,7 +38,7 @@ const SignUpForm = ({ switchAuthState }) => {
     onSubmit: async (values) => {
       setErrorMessage(undefined);
       setIsLoginRequest(true);
-      const { response, error } = await userApi.signUp(values);
+      const { response, error } = await userApi.signup(values);
       setIsLoginRequest(false);
 
       if (response) {

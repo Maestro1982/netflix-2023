@@ -38,15 +38,15 @@ const signup = async (req, res) => {
 };
 
 // Login user
-const signIn = async (req, res) => {
+const signin = async (req, res) => {
   try {
     const { username, password } = req.body;
 
     const user = await User.findOne({ username }).select(
-      'username, password, salt, id, displayName'
+      'username password salt id displayName'
     );
 
-    if (!user) return responseHandler.badRequest(res, 'User not found');
+    if (!user) return responseHandler.badRequest(res, 'User does not exist');
 
     if (!user.validPassword(password))
       return responseHandler.badRequest(res, 'Invalid password');
@@ -65,7 +65,7 @@ const signIn = async (req, res) => {
       ...user._doc,
       id: user.id,
     });
-  } catch (error) {
+  } catch {
     responseHandler.error(res);
   }
 };
@@ -107,7 +107,7 @@ const getUserInfo = async (req, res) => {
 
 export default {
   signup,
-  signIn,
+  signin,
   updatePassword,
   getUserInfo,
 };
